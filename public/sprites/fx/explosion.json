@@ -1,0 +1,122 @@
+{
+  "image": "explosion.webp",
+  "cell": [
+    232,
+    151
+  ],
+  "anchor": [
+    115,
+    89
+  ],
+  "grid": [
+    6,
+    8
+  ],
+  "ballRadius": 31,
+  "rows": [
+    {
+      "dir": "e",
+      "heading": 0.1027,
+      "source": "L0",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "dir": "ne",
+      "heading": 0.5161,
+      "source": "L5 espelhada",
+      "frames": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "dir": "n",
+      "heading": 1.5908,
+      "source": "L3",
+      "frames": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "dir": "nw",
+      "heading": 2.6255,
+      "source": "L5",
+      "frames": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "dir": "w",
+      "heading": 3.0408,
+      "source": "L1",
+      "frames": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ]
+    },
+    {
+      "dir": "sw",
+      "heading": -2.6714,
+      "source": "L6 espelhada",
+      "frames": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ]
+    },
+    {
+      "dir": "s",
+      "heading": -1.5842,
+      "source": "L2",
+      "frames": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ]
+    },
+    {
+      "dir": "se",
+      "heading": -0.4701,
+      "source": "L6",
+      "frames": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ]
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+/* Fredoka (SIL OFL, public/fonts/OFL.txt): a mais próxima das letras das teclas do HUD. */
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/fredoka-latin.woff2') format('woff2');
+}
+
+:root {
+  --panel-bg: rgba(14, 16, 21, 0.78);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text: #e6e2da;
+  --muted: #9aa0ab;
+  --accent: #e0484f;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #15181e;
+  color: var(--text);
+  /* iPhone: sem o balão "Salvar em Fotos / Copiar" ao segurar o dedo numa imagem. */
+  -webkit-touch-callout: none;
+}
+
+/* Imagens e o canvas do jogo não são arrastáveis nem selecionáveis (ver main.ts). */
+img, canvas {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+canvas {
+  display: block;
+  outline: none;
+}
+
+/*
+ * HUD de comandos: peças da arte posicionadas em % (ver ui/Hud.ts e tools/build-hud.ts),
+ * em dois conjuntos nos cantos de baixo: movimento à esquerda, ações e zoom à direita.
+ */
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  /* Px de tela por px da arte: acompanha a largura (teclas de ~48 px em 1280, ~70 px em 1920). */
+  --hud-u: clamp(0.15px, 0.0165vw, 0.32px);
+  --hud-margin: clamp(14px, 2vw, 32px);
+}
+
+.hud.hidden { display: none; }
+
+/* Apresentação na tela (ui/Welcome.ts): o HUD sai e volta com fade. */
+.hud { transition: opacity 500ms ease-out; }
+.hud.concealed { opacity: 0; transition-duration: 200ms; }
+
+.hud-cluster {
+  position: absolute;
+  bottom: var(--hud-margin);
+  /* Contorno escuro da arte + sombra leve: legível sobre areia clara e mar. */
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
+}
+
+.hud-move { left: var(--hud-margin); }
+.hud-actions { right: var(--hud-margin); }
+
+.hud-part {
+  position: absolute;
+  display: block;
+  transition: translate 160ms cubic-bezier(0.3, 1.5, 0.5, 1), scale 160ms cubic-bezier(0.3, 1.5, 0.5, 1),
+    filter 160ms ease-out, opacity 160ms ease-out;
+}
+
+/* Tecla pressionada: afunda (mais rápido que volta), clareia e ganha brilho quente. */
+.hud-key { transform-origin: 50% 100%; }
+.hud-group.down > .hud-key {
+  translate: 0 4%;
+  scale: 0.97 0.93;
+  filter: brightness(1.12) drop-shadow(0 0 0.3em rgba(255, 190, 70, 0.95));
+  transition-duration: 60ms;
+}
+
+/* Raios: discretos em repouso; acendem enquanto a tecla está pressionada e estouram a cada toque. */
+.hud-rays { opacity: 0.6; }
+.hud-group.down > .hud-rays {
+  opacity: 1;
+  filter: brightness(1.3) drop-shadow(0 0 0.2em #ffd65c);
+  transition-duration: 60ms;
+}
+.hud-group.hit > .hud-rays { animation: hud-burst 320ms ease-out; }
+@keyframes hud-burst {
+  0% { scale: 0.85; opacity: 0.5; }
+  40% { scale: 1.45; opacity: 1; }
+  100% { scale: 1; }
+}
+
+/* Setas: saem na direção da tecla e pulsam enquanto ela está pressionada. */
+.hud-group.down > .hud-arrow {
+  translate: var(--dx) var(--dy);
+  filter: brightness(1.2) drop-shadow(0 0 0.3em rgba(255, 200, 80, 0.95));
+  animation: hud-pulse 380ms ease-in-out infinite alternate;
+  transition-duration: 90ms;
+}
+@keyframes hud-pulse {
+  from { scale: 1; }
+  to { scale: 1.12; }
+}
+
+/* Shift: o bonequinho corre (avança, inclina e quica) enquanto está segurado. */
+.hud-group.down > .hud-run {
+  filter: brightness(1.12) drop-shadow(0 0 0.3em rgba(255, 215, 100, 0.9));
+  animation: hud-run 240ms ease-in-out infinite alternate;
+}
+@keyframes hud-run {
+  from { translate: 4% 0; rotate: 0deg; }
+  to { translate: 9% -7%; rotate: -4deg; }
+}
+
+/* E: a bola de fogo carrega (encolhe), explode em chamas e volta. */
+.hud-group.hit > .hud-fire { animation: hud-cast 560ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+@keyframes hud-cast {
+  0% { scale: 1; filter: none; }
+  20% { scale: 0.82; translate: 0 4%; filter: brightness(1.3); }
+  45% { scale: 1.35; translate: -4% -6%; filter: brightness(1.7) drop-shadow(0 0 0.5em #ff8a2a); }
+  70% { scale: 1.08; translate: 0 0; filter: brightness(1.25) drop-shadow(0 0 0.3em #ff8a2a); }
+  100% { scale: 1; filter: none; }
+}
+
+/* C: o boneco desliza para a frente e volta. */
+.hud-group.hit > .hud-slide { animation: hud-slide 480ms cubic-bezier(0.2, 0.8, 0.3, 1); }
+@keyframes hud-slide {
+  0% { translate: 0 0; }
+  35% { translate: 18% 3%; filter: brightness(1.3) drop-shadow(0 0 0.4em #7fe3ff); }
+  100% { translate: 0 0; }
+}
+.hud-group.down > .hud-slide { filter: brightness(1.15) drop-shadow(0 0 0.3em #7fe3ff); }
+
+/* Roda do mouse: o sinal do lado do zoom cresce e acende; a seta curva gira junto. */
+.hud-mouse.zoom-in > .hud-zoom-in,
+.hud-mouse.zoom-out > .hud-zoom-out {
+  scale: 1.25;
+  filter: brightness(1.2) drop-shadow(0 0 0.35em rgba(255, 200, 80, 0.95));
+  transition-duration: 60ms;
+}
+.hud-mouse.zoom-in > .hud-spin-in { animation: hud-tick 240ms ease-out infinite; --turn: 40deg; }
+.hud-mouse.zoom-out > .hud-spin-out { animation: hud-tick 240ms ease-out infinite; --turn: -40deg; }
+@keyframes hud-tick {
+  from { rotate: 0deg; }
+  to { rotate: var(--turn); }
+}
+.hud-mouse.zoom-in > .hud-key,
+.hud-mouse.zoom-out > .hud-key {
+  scale: 0.98;
+  filter: brightness(1.08) drop-shadow(0 0 0.3em rgba(255, 190, 70, 0.8));
+  transition-duration: 60ms;
+}
+.hud-mouse.zoom-in > .hud-rays,
+.hud-mouse.zoom-out > .hud-rays { opacity: 1; scale: 1.2; filter: brightness(1.3) drop-shadow(0 0 0.2em #ffd65c); }
+
+/* Leitura de estado: só no modo de desenvolvimento (tecla ' / `). */
+.hud-status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 8px 12px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  backdrop-filter: blur(4px);
+}
+
+.hud-status[hidden] { display: none; }
+.hud-status small { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-part { animation: none !important; transition-duration: 0ms !important; }
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.loading.error { color: var(--accent); }
+
+/*
+ * Aviso "só no computador" (ui/DesktopOnly.ts): pergaminho do HUD no meio da tela, sobre o mar.
+ * Textos em cqw (fração da largura do pergaminho): o tamanho acompanha a caixa em qualquer tela.
+ */
+.desktop-only {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* Folga lateral maior: o X fica metade para fora do pergaminho. */
+  padding: 20px 32px;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(10, 70, 80, 0.25), rgba(4, 30, 40, 0.75)),
+    url('/level/water.webp') center / 420px repeat,
+    #0d5563;
+  font-family: 'Fredoka', 'Segoe UI', system-ui, sans-serif;
+  color: #5a2912;
+}
+
+.dialog {
+  position: relative;
+  /* Cabe na largura e na altura (o pergaminho é alto: largura = altura × proporção). */
+  width: min(100%, calc((100svh - 48px) * var(--panel-ratio)), 440px);
+  aspect-ratio: var(--panel-aspect);
+  container-type: inline-size;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+  animation: dialog-in 420ms cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+
+@keyframes dialog-in {
+  from { scale: 0.8; opacity: 0; }
+  to { scale: 1; opacity: 1; }
+}
+
+.dialog-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.dialog-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4cqw;
+  padding: 5cqw 4cqw;
+  text-align: center;
+}
+
+.dialog h1 {
+  margin: 0;
+  font-size: 9.5cqw;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.dialog p {
+  margin: 0;
+  font-size: 5.6cqw;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.dialog p b { font-weight: 700; }
+
+.dialog .dialog-hint {
+  font-size: 5cqw;
+  font-weight: 600;
+  color: #8a4a1e;
+}
+
+.dialog-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6cqw;
+}
+
+.dialog-keys > div {
+  display: flex;
+  align-items: flex-end;
+  gap: 1cqw;
+}
+
+.dialog-keys img { display: block; height: auto; }
+
+/* X: no canto do pergaminho, metade para fora; afunda ao tocar como as teclas do HUD. */
+.dialog-close {
+  position: absolute;
+  top: -4cqw;
+  right: -5cqw;
+  width: 17cqw;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: translate 60ms ease-out, scale 60ms ease-out, filter 60ms ease-out;
+}
+
+.dialog-close img { display: block; width: 100%; height: auto; }
+
+.dialog-close:active {
+  translate: 0 4%;
+  scale: 0.94;
+  filter: brightness(1.12) drop-shadow(0 0 0.3em rgba(255, 190, 70, 0.95));
+}
+
+.dialog-close:focus-visible { outline: 3px solid #ffd65c; outline-offset: 4px; border-radius: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog { animation: none; }
+}
+
+/*
+ * Apresentação inicial (ui/Welcome.ts): retrato da Iso Miko à esquerda, atrás da caixa de
+ * pergaminho, que fica embaixo e no centro. Tamanhos em cqw (fração da largura da caixa).
+ * A largura cabe na tela e na altura (a caixa não passa de ~1/3 da tela).
+ */
+.welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Fredoka', 'Segoe UI', system-ui, sans-serif;
+  /* Escurece só a parte de baixo: a caixa e o retrato destacam e a ilha continua à vista. */
+  background: linear-gradient(to top, rgba(6, 16, 26, 0.6) 0%, rgba(6, 16, 26, 0.3) 32%, transparent 62%);
+  animation: welcome-fade 450ms ease-out both;
+}
+
+@keyframes welcome-fade {
+  from { opacity: 0; }
+}
+
+.welcome-stage {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(8px, 2.5svh, 28px);
+  width: min(calc(100vw - 32px), 1280px, 130svh);
+  translate: -50% 0;
+  container-type: inline-size;
+}
+
+/* Retrato: a base fica atrás da caixa (a arte é cortada na cintura). */
+.welcome-figure {
+  position: absolute;
+  left: 0;
+  bottom: 13cqw;
+  height: min(66svh, 56cqw);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  animation: welcome-figure-in 650ms cubic-bezier(0.2, 0.9, 0.3, 1.1) 120ms both;
+}
+
+@keyframes welcome-figure-in {
+  from { translate: -12% 0; opacity: 0; }
+}
+
+/* Cada fala: um pulinho (troca de pose). Respiração contínua no elemento de dentro. */
+.welcome-figure.talk { animation: welcome-talk 380ms cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+@keyframes welcome-talk {
+  0% { translate: 0 0; }
+  35% { translate: 0 -1.6%; }
+  100% { translate: 0 0; }
+}
+
+.welcome-portraits {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  animation: welcome-breathe 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes welcome-breathe {
+  to { scale: 1.004 1.008; }
+}
+
+.welcome-portraits img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+
+.welcome-portraits img.active { opacity: 1; }
+
+.welcome-box {
+  position: relative;
+  container-type: inline-size;
+  color: #5a2912;
+  animation: welcome-box-in 550ms cubic-bezier(0.25, 1.35, 0.5, 1) both;
+}
+
+@keyframes welcome-box-in {
+  from { translate: 0 35%; opacity: 0; }
+}
+
+.welcome-box-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+.welcome-name {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  font-size: 2.5cqw;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #8a2a17;
+}
+
+.welcome-text {
+  position: absolute;
+  padding: 1.5cqw 2.2cqw 1cqw 2.4cqw;
+  font-size: 2.15cqw;
+  font-weight: 500;
+  line-height: 1.32;
+  overflow-wrap: break-word;
+}
+
+.welcome-text b { font-weight: 700; color: #8a2a17; }
+
+/* Letra a letra: o texto inteiro já ocupa o lugar (sem palavras pulando de linha ao escrever). */
+.welcome-char { opacity: 0; transition: opacity 90ms linear; }
+.welcome-char.on { opacity: 1; }
+
+.welcome-hint { color: #8a4a1e; }
+
+/* Texto completo para leitores de tela (o visível é letra a letra). */
+.welcome-spoken {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Seta ">>>": aparece e vai e volta quando dá para avançar. */
+.welcome-next {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+.welcome.ready .welcome-next {
+  opacity: 1;
+  animation: welcome-next 900ms ease-in-out infinite;
+}
+
+@keyframes welcome-next {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 18% 0; filter: brightness(1.12) drop-shadow(0 0 0.4cqw rgba(255, 180, 60, 0.8)); }
+}
+
+.welcome.leaving { animation: welcome-fade 600ms ease-in reverse both; pointer-events: none; }
+.welcome.leaving .welcome-box { animation: welcome-box-out 550ms ease-in both; }
+.welcome.leaving .welcome-figure { animation: welcome-figure-out 500ms ease-in both; }
+
+@keyframes welcome-box-out {
+  to { translate: 0 35%; opacity: 0; }
+}
+
+@keyframes welcome-figure-out {
+  to { translate: -12% 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome, .welcome *, .welcome.leaving, .welcome.leaving * { animation: none !important; transition: none !important; }
+}

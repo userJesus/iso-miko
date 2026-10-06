@@ -1,0 +1,305 @@
+{
+  "size": [
+    1448,
+    1086
+  ],
+  "parts": {
+    "key-w": {
+      "file": "key-w.webp",
+      "box": [
+        602,
+        115,
+        228,
+        216
+      ]
+    },
+    "key-a": {
+      "file": "key-a.webp",
+      "box": [
+        362,
+        318,
+        218,
+        215
+      ]
+    },
+    "key-d": {
+      "file": "key-d.webp",
+      "box": [
+        849,
+        318,
+        220,
+        215
+      ]
+    },
+    "key-s": {
+      "file": "key-s.webp",
+      "box": [
+        610,
+        329,
+        215,
+        208
+      ]
+    },
+    "key-shift": {
+      "file": "key-shift.webp",
+      "box": [
+        68,
+        795,
+        385,
+        213
+      ]
+    },
+    "key-e": {
+      "file": "key-e.webp",
+      "box": [
+        515,
+        795,
+        222,
+        213
+      ]
+    },
+    "key-c": {
+      "file": "key-c.webp",
+      "box": [
+        813,
+        796,
+        218,
+        212
+      ]
+    },
+    "zoom-out": {
+      "file": "zoom-out.webp",
+      "box": [
+        1085,
+        713,
+        96,
+        95
+      ]
+    },
+    "zoom-in": {
+      "file": "zoom-in.webp",
+      "box": [
+        1322,
+        713,
+        95,
+        95
+      ]
+    },
+    "mouse": {
+      "file": "mouse.webp",
+      "box": [
+        1162,
+        742,
+        178,
+        267
+      ]
+    },
+    "spin-out": {
+      "file": "spin-out.webp",
+      "box": [
+        1120,
+        809,
+        35,
+        67
+      ]
+    },
+    "spin-in": {
+      "file": "spin-in.webp",
+      "box": [
+        1346,
+        808,
+        35,
+        67
+      ]
+    },
+    "arrow-up": {
+      "file": "arrow-up.webp",
+      "box": [
+        640,
+        22,
+        151,
+        97
+      ]
+    },
+    "arrow-left": {
+      "file": "arrow-left.webp",
+      "box": [
+        268,
+        358,
+        98,
+        158
+      ]
+    },
+    "arrow-down": {
+      "file": "arrow-down.webp",
+      "box": [
+        626,
+        533,
+        184,
+        93
+      ]
+    },
+    "arrow-right": {
+      "file": "arrow-right.webp",
+      "box": [
+        1065,
+        358,
+        101,
+        159
+      ]
+    },
+    "icon-run": {
+      "file": "icon-run.webp",
+      "box": [
+        106,
+        646,
+        308,
+        153
+      ]
+    },
+    "icon-fire": {
+      "file": "icon-fire.webp",
+      "box": [
+        537,
+        646,
+        204,
+        159
+      ]
+    },
+    "icon-slide": {
+      "file": "icon-slide.webp",
+      "box": [
+        796,
+        671,
+        239,
+        129
+      ]
+    },
+    "rays-w": {
+      "file": "rays-w.webp",
+      "box": [
+        551,
+        173,
+        332,
+        66
+      ],
+      "origin": [
+        716,
+        223
+      ]
+    },
+    "rays-s": {
+      "file": "rays-s.webp",
+      "box": [
+        569,
+        385,
+        294,
+        91
+      ],
+      "origin": [
+        717,
+        433
+      ]
+    },
+    "rays-a": {
+      "file": "rays-a.webp",
+      "box": [
+        318,
+        472,
+        35,
+        32
+      ],
+      "origin": [
+        471,
+        425
+      ]
+    },
+    "rays-d": {
+      "file": "rays-d.webp",
+      "box": [
+        1080,
+        473,
+        37,
+        31
+      ],
+      "origin": [
+        959,
+        425
+      ]
+    },
+    "rays-mouse": {
+      "file": "rays-mouse.webp",
+      "box": [
+        1202,
+        676,
+        92,
+        64
+      ],
+      "origin": [
+        1251,
+        875
+      ]
+    },
+    "rays-shift": {
+      "file": "rays-shift.webp",
+      "box": [
+        30,
+        768,
+        462,
+        64
+      ],
+      "origin": [
+        260,
+        901
+      ]
+    },
+    "rays-e": {
+      "file": "rays-e.webp",
+      "box": [
+        488,
+        826,
+        285,
+        93
+      ],
+      "origin": [
+        626,
+        901
+      ]
+    },
+    "rays-c": {
+      "file": "rays-c.webp",
+      "box": [
+        1024,
+        852,
+        52,
+        65
+      ],
+      "origin": [
+        922,
+        902
+      ]
+    }
+  },
+  "dialog": {
+    "panel": {
+      "file": "panel.webp",
+      "size": [
+        649,
+        984
+      ],
+      "frame": [
+        0.1279,
+        0.0823,
+        0.1156,
+        0.0915
+      ]
+    },
+    "close": {
+      "file": "close.webp",
+      "size": [
+        215,
+        213
+      ]
+    }
+  }
+}

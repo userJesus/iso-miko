@@ -1,0 +1,176 @@
+{
+  "pxPerMeter": 28,
+  "imageHeight": 941,
+  "pitchDeg": 30,
+  "screenRect": {
+    "x": 8.928571428571429,
+    "y": 1.0357142857142858,
+    "w": 42.142857142857146,
+    "h": 31.5
+  },
+  "tiles": [
+    {
+      "file": "island_0.webp",
+      "x0": 0,
+      "x1": 2360,
+      "px0": 0,
+      "px1": 2362,
+      "texW": 2362,
+      "texH": 3528
+    },
+    {
+      "file": "island_1.webp",
+      "x0": 2360,
+      "x1": 4720,
+      "px0": 2358,
+      "px1": 4720,
+      "texW": 2362,
+      "texH": 3528
+    }
+  ],
+  "texScale": 4,
+  "depth": {
+    "file": "depth.png",
+    "w": 2360,
+    "h": 1764,
+    "keyMin": -20,
+    "keyMax": 100
+  },
+  "grid": {
+    "file": "ground.bin",
+    "u0": 21,
+    "v0": 8,
+    "cell": 0.1,
+    "w": 290,
+    "h": 420
+  },
+  "regions": [
+    {
+      "id": "top",
+      "kind": "walk",
+      "level": 3,
+      "level1": 3,
+      "speed": 1,
+      "ramp": null
+    },
+    {
+      "id": "stairs",
+      "kind": "walk",
+      "level": 2,
+      "level1": 3,
+      "speed": 0.82,
+      "ramp": {
+        "h0": 1.2,
+        "h1": 2.95,
+        "steps": 5
+      }
+    },
+    {
+      "id": "path",
+      "kind": "walk",
+      "level": 2,
+      "level1": 2,
+      "speed": 1,
+      "ramp": null
+    },
+    {
+      "id": "descent",
+      "kind": "walk",
+      "level": 1,
+      "level1": 2,
+      "speed": 0.88,
+      "ramp": {
+        "h0": 0.3,
+        "h1": 1.2,
+        "steps": 3
+      }
+    },
+    {
+      "id": "beach",
+      "kind": "walk",
+      "level": 1,
+      "level1": 1,
+      "speed": 1,
+      "ramp": null
+    },
+    {
+      "id": "slopeL",
+      "kind": "surface",
+      "level": 2,
+      "level1": 3,
+      "speed": 1,
+      "ramp": {
+        "h0": 1.2,
+        "h1": 2.95,
+        "steps": 0
+      }
+    },
+    {
+      "id": "leftPlateau",
+      "kind": "surface",
+      "level": 3,
+      "level1": 3,
+      "speed": 1,
+      "ramp": null
+    }
+  ],
+  "blockers": [
+    {
+      "id": "toriiL",
+      "u": 32.321,
+      "v": 44.176,
+      "r": 0.6
+    },
+    {
+      "id": "toriiR",
+      "u": 35.857,
+      "v": 41.462,
+      "r": 0.6
+    },
+    {
+      "id": "cherryL",
+      "u": 26.679,
+      "v": 46.962,
+      "r": 0.5
+    },
+    {
+      "id": "smallPine",
+      "u": 28.75,
+      "v": 39.39,
+      "r": 0.42
+    },
+    {
+      "id": "cherryR",
+      "u": 45.286,
+      "v": 33.279,
+      "r": 0.38
+    },
+    {
+      "id": "pineR",
+      "u": 43.143,
+      "v": 26.85,
+      "r": 0.38
+    },
+    {
+      "id": "pineTR",
+      "u": 41.714,
+      "v": 44.564,
+      "r": 0.38
+    }
+  ],
+  "spawn": {
+    "u": 30.714,
+    "v": 15.838
+  },
+  "water": {
+    "file": "water.webp",
+    "height": 0
+  },
+  "fog": {
+    "cu": 29.97,
+    "cv": 27.45,
+    "ru": 20.67,
+    "rv": 24.55
+  },
+  "walkOverlay": "walk.png"
+}

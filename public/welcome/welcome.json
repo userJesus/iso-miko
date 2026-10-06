@@ -1,0 +1,42 @@
+{
+  "portraits": {
+    "files": [
+      "portrait-1.webp",
+      "portrait-2.webp",
+      "portrait-3.webp",
+      "portrait-4.webp"
+    ],
+    "size": [
+      1109,
+      1234
+    ]
+  },
+  "box": {
+    "file": "box.webp",
+    "size": [
+      1618,
+      418
+    ],
+    "text": [
+      0.0433,
+      0.2703,
+      0.966,
+      0.8445
+    ],
+    "name": [
+      0.0624,
+      0.0646,
+      0.3072,
+      0.2368
+    ],
+    "next": {
+      "file": "next.webp",
+      "rect": [
+        0.9159,
+        0.7129,
+        0.9555,
+        0.8349
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "iso-miko",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Ilha isométrica jogável no navegador, com personagem 2D em 8 direções. Código, arte, animações, sons e vozes criados com IA.",
+  "license": "MIT",
+  "author": "Jesus (https://www.linkedin.com/in/ojesus)",
+  "homepage": "https://userjesus.github.io/iso-miko/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/userJesus/iso-miko.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "sprites": "node tools/build-sprites.ts",
+    "level": "node tools/build-level.ts",
+    "hud": "node tools/build-hud.ts",
+    "welcome": "node tools/build-welcome.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lil-gui": "^0.21.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/three": "^0.186.0",
+    "sharp": "^0.35.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}

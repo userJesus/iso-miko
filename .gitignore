@@ -1,0 +1,6 @@
+node_modules
+dist
+.sprite-debug
+*.log
+.tools
+.cache
